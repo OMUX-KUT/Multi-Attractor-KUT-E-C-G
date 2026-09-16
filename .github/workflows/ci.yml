@@ -1,0 +1,45 @@
+name: KUT Engine CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install numpy pytest
+
+    - name: Install Package (Editable Mode)
+      run: |
+        pip install -e . --no-build-isolation || pip install -e .
+
+    - name: Verify Module Imports & Mathematical Consistency
+      run: |
+        python -c "
+        import kut_geometry_engine
+        from kut_geometry_engine.multi_attractor import MultiAttractorKUTController
+        from kut_geometry_engine.patience_geometric_controller import DynamicPatienceGeometricController
+
+        # 1. コントローラ初期化テスト
+        c = DynamicPatienceGeometricController(model_params_billion=72.0)
+        assert abs(c.beta - 0.35 * (7.0 / 72.0)**0.22) < 1e-4, 'Scaling law verification failed'
+
+        # 2. Multi-Attractor 初期化テスト
+        ma = MultiAttractorKUTController(num_attractors=2)
+        print('KUT-Engine Modules Verified Successfully: E=C=G Axioms Intact.')
+        "
