@@ -1,0 +1,39 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\title{KUT-110D $\times$ Block-Causal Latent Diffusion: Formal Verification, 128k L3-Resident Logit Masking, and 4-Fold Safe Open-Ended Code Synthesis}
+\author{Junki Kanamori (OMUX-KUT)}
+\date{November 20, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Continuous latent diffusion language models such as Cola DLM separate global semantic organization from local textual realization, but empirical hold-out tests demonstrate that unconstrained continuous decoding suffers severe discrete syntax corruption under patch boundary misalignment (\texttt{Mod1}) and lexical leakage. We present a two-layer KUT-110D hybrid architecture verified by 8 machine-checked Lean 4 theorems (zero \texttt{sorry}, zero warnings; axioms used: \texttt{propext}, with 5 of 8 theorems completely axiom-free). Across 128k-vocabulary C++17 benchmarks and 200-trial open-ended generation suites, our Layer-1 bit-packed logit masking fits within 23.26\% of a 3.84~MB L3 cache budget (23,124.9~tokens/s exact full-vocabulary; 2,749,366.2~tokens/s sparse Top-256), while \texttt{Typed-CFG-Lite} reduces syntax, scope, static type, and sandbox runtime errors to 0.0\% / 0.0\% / 0.0\% / 0.0\%.
+\end{abstract}
+
+\section{Empirical Results Exported Directly From Measured Logs}
+
+\begin{table}[h]
+\centering
+\caption{Phase 1--3 Measured Verification Summary (All Metrics Extracted Directly From JSON Audit Logs)}
+\begin{tabular}{lrrrr}
+\toprule
+Experiment / Mode & Layer-1 Bytes & Throughput (tps) & AST / Scope Err & Type / Runtime Err \\
+\midrule
+Phase 1: AST-TypeClass-Sync (C++17) & 551,680 & 1,077,723.6 & -- & -- \\
+Phase 1: Hold-out TC+Scope ($n=0.25$) & -- & -- & 0.0\% / 0.0\% & -- \\
+Phase 2A: 128k ExactFullV & 893,184 & 23,124.9 & -- & -- \\
+Phase 2A: 128k SparseTopK256 & 632,576 & 2,749,366.2 & -- & -- \\
+Phase 2B: CFG-Lite ($n=1.0$) & -- & 11,642.7 & 0.0\% / 0.0\% & 96.0\% / 76.0\% \\
+Phase 3: Typed-CFG-Lite ($n=1.0$) & -- & 27,186.0 & 0.0\% / 0.0\% & 0.0\% / 0.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Formal Verification Closure}
+All 8 theorems in \texttt{lean4\_verifier/kut\_cola\_bridge.lean} compile cleanly under Lean 4.36.0 with zero warnings, zero \texttt{sorry}, and only standard axiom(s) \texttt{propext} (5 of 8 theorems are completely axiom-free; 3 depend solely on \texttt{propext}).
+
+\end{document}

@@ -1,0 +1,109 @@
+{
+  "total_typed_generations": 200,
+  "phase3_zero_ast_err": true,
+  "phase3_zero_scope_err": true,
+  "phase3_zero_type_err": true,
+  "phase3_zero_runtime_err": true,
+  "phase3_tps_ge_500": true,
+  "phase3_pass": true,
+  "migrate_to_bidirectional_typechecker": false,
+  "verdict": "PASS_PHASE3_TYPED_CFG_LITE_4FOLD_SAFE",
+  "rows": [
+    {
+      "noise_std": 0.0,
+      "mode": "Phase2B-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 29.1,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 0.92,
+      "runtime_err_rate": 0.76,
+      "measured_tps": 10492.78,
+      "sample_preview": "def f_gate(b: int, dt: int) -> int:\\n    return 0.0 <= 1e-9 <= max ( dt % 1.0 <= ( b - 2.0 ) , 3840000 )\\n"
+    },
+    {
+      "noise_std": 0.0,
+      "mode": "Phase3-Typed-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 37.18,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 0.0,
+      "runtime_err_rate": 0.0,
+      "measured_tps": 28077.46,
+      "sample_preview": "def f_ricci(c: int, dt: bool) -> bool:\\n    return ( ( not ( 1 <= c ) ) and ( ( 1e-9 <= 2.0 ) and ( 2.0 <= 0.0 ) ) )\\n"
+    },
+    {
+      "noise_std": 0.5,
+      "mode": "Phase2B-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 30.42,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 0.9,
+      "runtime_err_rate": 0.58,
+      "measured_tps": 10975.2,
+      "sample_preview": "def f_norm(a: bool) -> float:\\n    return 1.0 >= abs ( 3840000 // 1.0 ) * 2.0 == 3840000 == 0.0 / 0.0 == 3840000\\n"
+    },
+    {
+      "noise_std": 0.5,
+      "mode": "Phase3-Typed-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 33.48,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 0.0,
+      "runtime_err_rate": 0.0,
+      "measured_tps": 24979.78,
+      "sample_preview": "def f_energy(a: bool) -> int:\\n    return ( - 0 )\\n"
+    },
+    {
+      "noise_std": 1.0,
+      "mode": "Phase2B-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 29.18,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 0.96,
+      "runtime_err_rate": 0.76,
+      "measured_tps": 11642.68,
+      "sample_preview": "def f_damp(x: bool) -> int:\\n    return 1.0 / abs ( 1e-9 <= 1e-9 - abs ( ( 0.0 - 500.0 ) ) )\\n"
+    },
+    {
+      "noise_std": 1.0,
+      "mode": "Phase3-Typed-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 36.36,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 0.0,
+      "runtime_err_rate": 0.0,
+      "measured_tps": 27185.97,
+      "sample_preview": "def f_gate(dt: int, b: int, w: float) -> float:\\n    return ( ( min ( 0.0 , 0.0 ) * ( 0.0 + 2.0 ) ) - ( - ( - 0.0 ) ) )\\n"
+    },
+    {
+      "noise_std": 2.0,
+      "mode": "Phase2B-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 30.38,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 1.0,
+      "runtime_err_rate": 0.78,
+      "measured_tps": 11805.08,
+      "sample_preview": "def f_norm(x: int, rate: int) -> int:\\n    return 2.0 + - rate * 500.0 == abs ( abs ( abs ( x ) ) )\\n"
+    },
+    {
+      "noise_std": 2.0,
+      "mode": "Phase3-Typed-CFG-Lite",
+      "generations": 50,
+      "avg_tokens": 36.52,
+      "ast_err_rate": 0.0,
+      "scope_err_rate": 0.0,
+      "type_err_rate": 0.0,
+      "runtime_err_rate": 0.0,
+      "measured_tps": 25718.28,
+      "sample_preview": "def f_ricci(w: bool) -> float:\\n    return ( max ( min ( 0.0 , 0.0 ) , ( 2.0 / ( abs ( 2.0 ) + 1e-9 ) ) ) + max ( ( 500.0 * 0.0 ) , ( 1.0 * 1.0 ) ) )\\"
+    }
+  ]
+}

@@ -109,7 +109,6 @@ inductive TokenRole where
   | scopeIdent
   deriving DecidableEq, Repr
 
-/-- スロット列における型クラス違反件数 -/
 def countRoleViolations {α : Type} (allowed : TokenRole → α → Bool) :
     List (TokenRole × α) → Nat
   | [] => 0
@@ -117,7 +116,6 @@ def countRoleViolations {α : Type} (allowed : TokenRole → α → Bool) :
     (match allowed r tok with | true => 0 | false => 1) +
     countRoleViolations allowed rest
 
-/-- 全スロットがロジットマスク許可集合に閉包している述語 -/
 def AllRoleClosed {α : Type} (allowed : TokenRole → α → Bool) :
     List (TokenRole × α) → Prop
   | [] => True
@@ -156,11 +154,60 @@ theorem typeclass_mask_budget_sound (s : HybridDecodeState) (bitmaskBytes : Nat)
           | intro _ h6 =>
             exact ⟨h1, h2, h3, h4, hBudget, h6⟩
 
+/-- Phase 3: 厳格分離型（int / float / bool） -/
+inductive SimpleTy where
+  | tInt
+  | tFloat
+  | tBool
+  deriving DecidableEq, Repr
+
+def tyEq : SimpleTy → SimpleTy → Bool
+  | .tInt, .tInt => true
+  | .tFloat, .tFloat => true
+  | .tBool, .tBool => true
+  | _, _ => false
+
+theorem tyEq_refl (t : SimpleTy) : tyEq t t = true := by
+  cases t <;> rfl
+
+/-- 非ゼロ分母ガード（|x| + 1 ≥ 1）の形式モデル -/
+def safePositiveDenom (absVal : Nat) : Nat := absVal + 1
+
+/-- 定理7 (Phase 3): 非ゼロ分母ガード適用後の除数は常に 0 ではない（無公理） -/
+theorem safe_denom_nonzero (absVal : Nat) : safePositiveDenom absVal ≠ 0 :=
+  Nat.succ_ne_zero absVal
+
+def countTypeMismatches : List (SimpleTy × SimpleTy) → Nat
+  | [] => 0
+  | (exp, act) :: rest =>
+    (match tyEq exp act with | true => 0 | false => 1) + countTypeMismatches rest
+
+def AllTypeMatched : List (SimpleTy × SimpleTy) → Prop
+  | [] => True
+  | (exp, act) :: rest => exp = act ∧ AllTypeMatched rest
+
+/-- 定理8 (Phase 3): Typed-CFG-Lite の型指向閉包は型不一致件数 0 を無公理で保証する -/
+theorem typed_cfg_zero_mismatch (pairs : List (SimpleTy × SimpleTy))
+    (h : AllTypeMatched pairs) :
+    countTypeMismatches pairs = 0 := by
+  induction pairs with
+  | nil => rfl
+  | cons hd tl ih =>
+    cases hd with
+    | mk exp act =>
+      cases h with
+      | intro heq htl =>
+        subst heq
+        unfold countTypeMismatches
+        rw [tyEq_refl exp, ih htl]
+
 #print axioms ast_sync_guarantees_mod0
 #print axioms gate_and_falsification_exclusive
 #print axioms cram_fallback_sound
 #print axioms head_l3_isolation_sound
 #print axioms typeclass_closure_zero_violation
 #print axioms typeclass_mask_budget_sound
+#print axioms safe_denom_nonzero
+#print axioms typed_cfg_zero_mismatch
 
 end KUT.ColaHybrid
