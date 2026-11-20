@@ -100,9 +100,67 @@ theorem head_l3_isolation_sound (s : HybridDecodeState) (newBackboneBytes : Nat)
   intro h
   exact h
 
+/-- 4種型クラス＋スコープ内変数制約ロール -/
+inductive TokenRole where
+  | struct
+  | identDecl
+  | typeName
+  | exprAtom
+  | scopeIdent
+  deriving DecidableEq, Repr
+
+/-- スロット列における型クラス違反件数 -/
+def countRoleViolations {α : Type} (allowed : TokenRole → α → Bool) :
+    List (TokenRole × α) → Nat
+  | [] => 0
+  | (r, tok) :: rest =>
+    (match allowed r tok with | true => 0 | false => 1) +
+    countRoleViolations allowed rest
+
+/-- 全スロットがロジットマスク許可集合に閉包している述語 -/
+def AllRoleClosed {α : Type} (allowed : TokenRole → α → Bool) :
+    List (TokenRole × α) → Prop
+  | [] => True
+  | (r, tok) :: rest => allowed r tok = true ∧ AllRoleClosed allowed rest
+
+/-- 定理5: ロジットマスクによる型クラス閉包は構文ロール違反件数 0 を無公理で保証する -/
+theorem typeclass_closure_zero_violation {α : Type}
+    (allowed : TokenRole → α → Bool)
+    (stream : List (TokenRole × α))
+    (hClosed : AllRoleClosed allowed stream) :
+    countRoleViolations allowed stream = 0 := by
+  induction stream with
+  | nil => rfl
+  | cons hd tl ih =>
+    cases hd with
+    | mk r tok =>
+      cases hClosed with
+      | intro hhd htl =>
+        unfold countRoleViolations
+        rw [hhd, ih htl]
+
+/-- 定理6: 型クラス・ロジットマスク常駐メモリ加算後もL3上限内ならGateを通過し続ける -/
+theorem typeclass_mask_budget_sound (s : HybridDecodeState) (bitmaskBytes : Nat)
+    (hPass : HybridGatePass s)
+    (hBudget : s.headWorkingSetBytes + bitmaskBytes ≤ L3_CACHE_LIMIT_BYTES) :
+    HybridGatePass { s with headWorkingSetBytes := s.headWorkingSetBytes + bitmaskBytes } := by
+  cases hPass with
+  | intro h1 h23456 =>
+    cases h23456 with
+    | intro h2 h3456 =>
+      cases h3456 with
+      | intro h3 h456 =>
+        cases h456 with
+        | intro h4 h56 =>
+          cases h56 with
+          | intro _ h6 =>
+            exact ⟨h1, h2, h3, h4, hBudget, h6⟩
+
 #print axioms ast_sync_guarantees_mod0
 #print axioms gate_and_falsification_exclusive
 #print axioms cram_fallback_sound
 #print axioms head_l3_isolation_sound
+#print axioms typeclass_closure_zero_violation
+#print axioms typeclass_mask_budget_sound
 
 end KUT.ColaHybrid

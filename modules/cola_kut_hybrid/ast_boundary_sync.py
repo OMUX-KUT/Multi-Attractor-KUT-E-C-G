@@ -1,4 +1,4 @@
-"""Reversible Python lexer, AST verifier, and Mod0/Mod1/AST-Sync sequence builder."""
+"""Reversible Python lexer, AST verifier, 4-class token role classifier, and scope extractor."""
 
 from __future__ import annotations
 
@@ -6,18 +6,24 @@ import ast
 import keyword
 import re
 from dataclasses import dataclass
-from typing import List, Literal
+from typing import List, Literal, Set, Tuple
 
 ConditionType = Literal["Mod0", "Mod1", "AST-Sync"]
+RoleType = Literal["STRUCT", "IDENT_DECL", "TYPE_NAME", "EXPR_ATOM"]
 
 _REVERSIBLE_TOKEN_RE = re.compile(
-    r"\s+|[A-Za-z_][A-Za-z0-9_]*|[0-9]+(?:\.[0-9]+)?|==|!=|<=|>=|->|\S"
+    r"\s+|[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?|[A-Za-z_][A-Za-z0-9_]*|==|!=|<=|>=|->|//|\S"
 )
 
+_NUMBER_RE = re.compile(r"^[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?$")
+
 _STRUCTURAL_SYMBOLS = {
-    "(", ")", "[", "]", "{", "}", ":", ",", ".", "=", "+", "-", "*", "/",
-    "==", "!=", "<=", ">=", "->", "<", ">",
+    "(", ")", "[", "]", "{", "}", ":", ",", ".", "=", "+", "-", "*", "/", "//",
+    "==", "!=", "<=", ">=", "->", "<", ">", "%",
 }
+
+BUILTIN_SAFE_CALLABLES: Set[str] = {"abs", "min", "max"}
+VALID_TYPE_NAMES: Set[str] = {"int", "float", "bool", "str"}
 
 
 @dataclass(frozen=True)
@@ -35,7 +41,7 @@ class SyncedSequence:
 
 
 def reversible_tokenize(source: str) -> List[str]:
-    """Losslessly split Python source so ''.join(tokens) == source."""
+    """Losslessly split Python source (including scientific notation like 1e-9)."""
     tokens = _REVERSIBLE_TOKEN_RE.findall(source)
     if "".join(tokens) != source:
         raise AssertionError("Reversible lexer invariant violated")
@@ -43,7 +49,6 @@ def reversible_tokenize(source: str) -> List[str]:
 
 
 def is_structural_ast_token(tok: str) -> bool:
-    """Identify tokens that form the AST structural skeleton (keywords, whitespace, ops)."""
     if tok.isspace():
         return True
     if keyword.iskeyword(tok):
@@ -53,13 +58,96 @@ def is_structural_ast_token(tok: str) -> bool:
     return False
 
 
+def is_valid_identifier(tok: str) -> bool:
+    return tok.isidentifier() and (not keyword.iskeyword(tok))
+
+
+def is_valid_number(tok: str) -> bool:
+    return bool(_NUMBER_RE.fullmatch(tok))
+
+
+def classify_token_roles(raw_tokens: List[str]) -> Tuple[List[RoleType], Set[str]]:
+    """Assign each token to {STRUCT, IDENT_DECL, TYPE_NAME, EXPR_ATOM} and extract local params."""
+    roles: List[RoleType] = []
+    local_params: Set[str] = set()
+    in_sig = False
+    in_params = False
+    prev_nonspace = ""
+
+    for tok in raw_tokens:
+        if tok == "def":
+            in_sig = True
+            in_params = False
+            roles.append("STRUCT")
+            prev_nonspace = tok
+            continue
+
+        if is_structural_ast_token(tok):
+            roles.append("STRUCT")
+            if in_sig:
+                if tok == "(":
+                    in_params = True
+                elif tok == ")":
+                    in_params = False
+                elif tok == ":" and not in_params:
+                    in_sig = False
+            if not tok.isspace():
+                prev_nonspace = tok
+            continue
+
+        # Non-structural token classification
+        if in_sig:
+            if prev_nonspace == "def":
+                roles.append("IDENT_DECL")
+            elif in_params and prev_nonspace in ("(", ","):
+                roles.append("IDENT_DECL")
+                local_params.add(tok)
+            elif prev_nonspace in (":", "->"):
+                roles.append("TYPE_NAME")
+            else:
+                roles.append("EXPR_ATOM")
+        else:
+            roles.append("EXPR_ATOM")
+
+        prev_nonspace = tok
+
+    return roles, local_params
+
+
 def verify_ast_integrity(source: str) -> bool:
-    """Return True iff the decoded Python string parses with zero SyntaxError."""
     try:
         ast.parse(source)
         return True
     except SyntaxError:
         return False
+
+
+def verify_scope_integrity(source: str, allowed_builtins: Set[str] = BUILTIN_SAFE_CALLABLES) -> bool:
+    """Verify valid AST AND zero undefined identifier references (NameError prevention)."""
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return False
+
+    defined_globals: Set[str] = set(allowed_builtins)
+    for node in tree.body:
+        if isinstance(node, ast.FunctionDef):
+            defined_globals.add(node.name)
+            local_args = {arg.arg for arg in node.args.args}
+            # Validate annotations use valid type names
+            for arg in node.args.args:
+                if isinstance(arg.annotation, ast.Name):
+                    if arg.annotation.id not in VALID_TYPE_NAMES:
+                        return False
+            if isinstance(node.returns, ast.Name):
+                if node.returns.id not in VALID_TYPE_NAMES:
+                    return False
+            # Validate all Name(Load) references inside function body are in scope
+            for sub in ast.walk(node):
+                if isinstance(sub, ast.Name) and isinstance(sub.ctx, ast.Load):
+                    if sub.id not in local_args and sub.id not in defined_globals and sub.id not in VALID_TYPE_NAMES:
+                        return False
+    return True
 
 
 def compute_ast_sync_pad(length: int, patch_size: int) -> int:
@@ -73,13 +161,11 @@ def build_three_conditions(
     patch_size: int = 2,
     block_size: int = 16,
 ) -> List[SyncedSequence]:
-    """Build Mod0, Mod1 (real 1-token boundary shift), and AST-Sync sequences."""
     ast_ok = verify_ast_integrity(source)
     base = reversible_tokenize(source)
     if not base:
         raise ValueError("Empty token sequence")
 
-    # 1) Mod0: aligned to patch_size with neutral whitespace padding if odd
     mod0_pad = compute_ast_sync_pad(len(base), patch_size)
     mod0_toks = list(base) + ([" "] * mod0_pad)
     mod0 = SyncedSequence(
@@ -95,7 +181,6 @@ def build_three_conditions(
         source_ast_valid=ast_ok,
     )
 
-    # 2) Mod1: simulate odd prompt boundary causing 1-token patch phase shift
     mod1_raw = ["<SHIFT>"] + list(base)
     mod1_tail = compute_ast_sync_pad(len(mod1_raw), patch_size)
     mod1_toks = mod1_raw + (["<PAD>"] * mod1_tail)
@@ -112,7 +197,6 @@ def build_three_conditions(
         source_ast_valid=ast_ok,
     )
 
-    # 3) AST-Sync: align to patch_size with <AST_PAD> and protect AST skeleton tokens
     sync_pad = compute_ast_sync_pad(len(base), patch_size)
     sync_toks = list(base) + (["<AST_PAD>"] * sync_pad)
     sync_mask = [is_structural_ast_token(t) for t in base] + ([True] * sync_pad)
