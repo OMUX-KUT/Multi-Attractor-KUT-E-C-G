@@ -1,0 +1,6 @@
+org,track,target_name,role_team,source_url,channel,pitch_angle,sent_date,reply_hours,reply_status,technical_feedback,next_step,priority_score
+Google DeepMind,Formal Math / AlphaProof,<FILL_FROM_ARXIV>,Staff Research Scientist / EM,,Email/X,Lean4 8/8 + Typed-CFG-Lite + 256k L3,,,PENDING,,,S
+Google DeepMind,Gemma / Gemini Inference,<FILL_FROM_GITHUB>,Research Engineer (XLA/Decoding),,Email/LinkedIn,256k 156KB 1-bit mask + TPU pipeline,,,PENDING,,,S
+Google DeepMind,Tokyo R&D / Reasoning,<FILL_FROM_SCHOLAR>,Research Engineer / Lead,,LinkedIn/Referral,Zero-retry 4-fold safety + Tokyo hub,,,PENDING,,,S
+OpenAI,Inference / Structured Outputs,<FILL_FROM_GITHUB>,MTS Inference Systems,,Email/X,Real o200k_base 122KB mask + beyond CFG,,,PENDING,,,A
+OpenAI,Codex / Agentic Coding,<FILL_FROM_ARXIV>,MTS Reasoning / Verification,,Email/X,Eliminating 90-100% type & 58-78% runtime retries,,,PENDING,,,A
