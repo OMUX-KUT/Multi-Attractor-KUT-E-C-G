@@ -1,0 +1,80 @@
+[
+  {
+    "vocab_size": 32768,
+    "mode": "BitPacked-ExactFullV",
+    "head_state_bytes": 549120,
+    "bitpacked_mask_bytes": 20480,
+    "logit_or_topk_bytes": 65536,
+    "total_layer1_bytes": 635136,
+    "l3_utilization_ratio": 0.1654,
+    "measured_tps": 94685.8924,
+    "gate_l3_pass": true,
+    "gate_tps_pass": true,
+    "phase2a_pass": true
+  },
+  {
+    "vocab_size": 32768,
+    "mode": "BitPacked-SparseTopK256",
+    "head_state_bytes": 549120,
+    "bitpacked_mask_bytes": 20480,
+    "logit_or_topk_bytes": 1536,
+    "total_layer1_bytes": 571136,
+    "l3_utilization_ratio": 0.1487,
+    "measured_tps": 3090050.0089,
+    "gate_l3_pass": true,
+    "gate_tps_pass": true,
+    "phase2a_pass": true
+  },
+  {
+    "vocab_size": 65536,
+    "mode": "BitPacked-ExactFullV",
+    "head_state_bytes": 549120,
+    "bitpacked_mask_bytes": 40960,
+    "logit_or_topk_bytes": 131072,
+    "total_layer1_bytes": 721152,
+    "l3_utilization_ratio": 0.1878,
+    "measured_tps": 46410.6740,
+    "gate_l3_pass": true,
+    "gate_tps_pass": true,
+    "phase2a_pass": true
+  },
+  {
+    "vocab_size": 65536,
+    "mode": "BitPacked-SparseTopK256",
+    "head_state_bytes": 549120,
+    "bitpacked_mask_bytes": 40960,
+    "logit_or_topk_bytes": 1536,
+    "total_layer1_bytes": 591616,
+    "l3_utilization_ratio": 0.1541,
+    "measured_tps": 3045157.7341,
+    "gate_l3_pass": true,
+    "gate_tps_pass": true,
+    "phase2a_pass": true
+  },
+  {
+    "vocab_size": 131072,
+    "mode": "BitPacked-ExactFullV",
+    "head_state_bytes": 549120,
+    "bitpacked_mask_bytes": 81920,
+    "logit_or_topk_bytes": 262144,
+    "total_layer1_bytes": 893184,
+    "l3_utilization_ratio": 0.2326,
+    "measured_tps": 23124.9013,
+    "gate_l3_pass": true,
+    "gate_tps_pass": true,
+    "phase2a_pass": true
+  },
+  {
+    "vocab_size": 131072,
+    "mode": "BitPacked-SparseTopK256",
+    "head_state_bytes": 549120,
+    "bitpacked_mask_bytes": 81920,
+    "logit_or_topk_bytes": 1536,
+    "total_layer1_bytes": 632576,
+    "l3_utilization_ratio": 0.1647,
+    "measured_tps": 2749366.1748,
+    "gate_l3_pass": true,
+    "gate_tps_pass": true,
+    "phase2a_pass": true
+  }
+]

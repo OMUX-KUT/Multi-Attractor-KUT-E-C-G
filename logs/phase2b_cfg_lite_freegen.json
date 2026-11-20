@@ -1,0 +1,90 @@
+{
+  "total_cfg_lite_generations": 200,
+  "phase2b_zero_ast_err": true,
+  "phase2b_zero_scope_err": true,
+  "phase2b_tps_ge_500": true,
+  "phase2b_pass": true,
+  "verdict": "PASS_PHASE2B_CFG_LITE_FREEGEN",
+  "rows": [
+    {
+      "noise_std": 0.0,
+      "mode": "Unconstrained-FreeGen",
+      "generations": 50,
+      "avg_tokens": 33.3,
+      "ast_corruption_rate": 0.98,
+      "scope_error_rate": 0.98,
+      "measured_tps": 20958.1,
+      "sample_preview": "def f_gate(b: int, dt: int) -> int:\\n    return : lim int f_ricci c w x 1.0 1.0 1e-9 rate bool f_energy min 2.0 w / int a % b def "
+    },
+    {
+      "noise_std": 0.0,
+      "mode": "CFG-Lite-FreeGen",
+      "generations": 50,
+      "avg_tokens": 29.1,
+      "ast_corruption_rate": 0.0,
+      "scope_error_rate": 0.0,
+      "measured_tps": 12082.89,
+      "sample_preview": "def f_gate(b: int, dt: int) -> int:\\n    return 0.0 <= 1e-9 <= max ( dt % 1.0 <= ( b - 2.0 ) , 3840000 )\\n"
+    },
+    {
+      "noise_std": 0.5,
+      "mode": "Unconstrained-FreeGen",
+      "generations": 50,
+      "avg_tokens": 33.44,
+      "ast_corruption_rate": 0.96,
+      "scope_error_rate": 0.98,
+      "measured_tps": 22638.91,
+      "sample_preview": "def f_norm(a: bool) -> float:\\n    return 1.0 w def -> 3840000 min : rate ) 2.0 f_ricci int f_energy f_blend return >= == x 1.0 f_"
+    },
+    {
+      "noise_std": 0.5,
+      "mode": "CFG-Lite-FreeGen",
+      "generations": 50,
+      "avg_tokens": 30.42,
+      "ast_corruption_rate": 0.0,
+      "scope_error_rate": 0.0,
+      "measured_tps": 10368.02,
+      "sample_preview": "def f_norm(a: bool) -> float:\\n    return 1.0 >= abs ( 3840000 // 1.0 ) * 2.0 == 3840000 == 0.0 / 0.0 == 3840000\\n"
+    },
+    {
+      "noise_std": 1.0,
+      "mode": "Unconstrained-FreeGen",
+      "generations": 50,
+      "avg_tokens": 33.22,
+      "ast_corruption_rate": 0.94,
+      "scope_error_rate": 0.96,
+      "measured_tps": 20931.31,
+      "sample_preview": "def f_damp(x: bool) -> int:\\n    return 1.0 / return abs float <= c - // int w : 3840000 f_damp\\n"
+    },
+    {
+      "noise_std": 1.0,
+      "mode": "CFG-Lite-FreeGen",
+      "generations": 50,
+      "avg_tokens": 29.18,
+      "ast_corruption_rate": 0.0,
+      "scope_error_rate": 0.0,
+      "measured_tps": 12295.51,
+      "sample_preview": "def f_damp(x: bool) -> int:\\n    return 1.0 / abs ( 1e-9 <= 1e-9 - abs ( ( 0.0 - 500.0 ) ) )\\n"
+    },
+    {
+      "noise_std": 2.0,
+      "mode": "Unconstrained-FreeGen",
+      "generations": 50,
+      "avg_tokens": 33.36,
+      "ast_corruption_rate": 0.98,
+      "scope_error_rate": 0.98,
+      "measured_tps": 22639.89,
+      "sample_preview": "def f_norm(x: int, rate: int) -> int:\\n    return c + dt ) ) f_norm 2.0 >= f_energy abs % f_energy min x 0.0 f_norm f_damp dt 1.0 "
+    },
+    {
+      "noise_std": 2.0,
+      "mode": "CFG-Lite-FreeGen",
+      "generations": 50,
+      "avg_tokens": 30.38,
+      "ast_corruption_rate": 0.0,
+      "scope_error_rate": 0.0,
+      "measured_tps": 11583.88,
+      "sample_preview": "def f_norm(x: int, rate: int) -> int:\\n    return 2.0 + - rate * 500.0 == abs ( abs ( abs ( x ) ) )\\n"
+    }
+  ]
+}
