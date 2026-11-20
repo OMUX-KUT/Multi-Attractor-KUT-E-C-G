@@ -1,0 +1,110 @@
+{
+  "lean4_verified": true,
+  "lean4_axioms_detected": [
+    "propext"
+  ],
+  "layer1_l3_limit_bytes": 3840000,
+  "layer1_min_tps": 500.0,
+  "layer2_ref_2b_backbone_bytes": 4000000000,
+  "real_vae_results": [
+    {
+      "condition": "Mod0",
+      "noise_ratio": 0.0,
+      "token_accuracy": 1.0,
+      "ast_corrupted": false,
+      "ast_corruption_rate": 0.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 9731.85
+    },
+    {
+      "condition": "Mod1",
+      "noise_ratio": 0.0,
+      "token_accuracy": 0.553459,
+      "ast_corrupted": true,
+      "ast_corruption_rate": 1.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 46408.99
+    },
+    {
+      "condition": "AST-Sync",
+      "noise_ratio": 0.0,
+      "token_accuracy": 1.0,
+      "ast_corrupted": false,
+      "ast_corruption_rate": 0.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 56907.86
+    },
+    {
+      "condition": "Mod0",
+      "noise_ratio": 0.1,
+      "token_accuracy": 1.0,
+      "ast_corrupted": false,
+      "ast_corruption_rate": 0.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 51900.93
+    },
+    {
+      "condition": "Mod1",
+      "noise_ratio": 0.1,
+      "token_accuracy": 0.553459,
+      "ast_corrupted": true,
+      "ast_corruption_rate": 1.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 49340.51
+    },
+    {
+      "condition": "AST-Sync",
+      "noise_ratio": 0.1,
+      "token_accuracy": 1.0,
+      "ast_corrupted": false,
+      "ast_corruption_rate": 0.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 51706.53
+    },
+    {
+      "condition": "Mod0",
+      "noise_ratio": 0.25,
+      "token_accuracy": 1.0,
+      "ast_corrupted": false,
+      "ast_corruption_rate": 0.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 47659.53
+    },
+    {
+      "condition": "Mod1",
+      "noise_ratio": 0.25,
+      "token_accuracy": 0.559748,
+      "ast_corrupted": true,
+      "ast_corruption_rate": 1.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 50096.11
+    },
+    {
+      "condition": "AST-Sync",
+      "noise_ratio": 0.25,
+      "token_accuracy": 1.0,
+      "ast_corrupted": false,
+      "ast_corruption_rate": 0.0,
+      "samples_evaluated": 4,
+      "vae_backbone_param_bytes": 566712,
+      "head_working_set_bytes": 132000,
+      "eval_tps": 51595.94
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+[
+  {
+    "condition": "Mod0",
+    "num_tokens": 512,
+    "num_latents": 256,
+    "layer1_head_working_set_bytes": 547360,
+    "layer1_l3_utilization_ratio": 0.1425,
+    "layer2_backbone_ref_bytes": 4000000000,
+    "layer1_measured_tps": 16455559.3034,
+    "latent_l2_residual": 0.0017,
+    "boundary_aligned": true,
+    "gate_b_head_l3_pass": true,
+    "fallback_to_cram": false
+  },
+  {
+    "condition": "Mod1",
+    "num_tokens": 513,
+    "num_latents": 257,
+    "layer1_head_working_set_bytes": 549120,
+    "layer1_l3_utilization_ratio": 0.1430,
+    "layer2_backbone_ref_bytes": 4000000000,
+    "layer1_measured_tps": 15830465.2830,
+    "latent_l2_residual": 0.6039,
+    "boundary_aligned": false,
+    "gate_b_head_l3_pass": true,
+    "fallback_to_cram": false
+  },
+  {
+    "condition": "AST-Sync",
+    "num_tokens": 514,
+    "num_latents": 257,
+    "layer1_head_working_set_bytes": 549120,
+    "layer1_l3_utilization_ratio": 0.1430,
+    "layer2_backbone_ref_bytes": 4000000000,
+    "layer1_measured_tps": 16150626.9051,
+    "latent_l2_residual": 0.0017,
+    "boundary_aligned": true,
+    "gate_b_head_l3_pass": true,
+    "fallback_to_cram": false
+  }
+]

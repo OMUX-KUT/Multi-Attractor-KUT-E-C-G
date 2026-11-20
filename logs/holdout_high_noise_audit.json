@@ -1,0 +1,235 @@
+{
+  "train_sample_count": 16,
+  "holdout_sample_count": 8,
+  "trials_per_sample": 10,
+  "noise_grid": [
+    0.0,
+    0.25,
+    0.4,
+    0.6,
+    0.8,
+    1.0
+  ],
+  "rows": [
+    {
+      "noise_ratio": 0.0,
+      "condition": "Mod0",
+      "token_accuracy": 0.916854,
+      "ast_corruption_rate": 0.75,
+      "corrupted_count": 60,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (  - * * 3840000) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.0,
+      "condition": "Mod1",
+      "token_accuracy": 0.707865,
+      "ast_corruption_rate": 1.0,
+      "corrupted_count": 80,
+      "total_trials": 80,
+      "sample_error_preview": "* abs(a* 0.0, b* 0.0, dt* float) / floatkut_ricci_step(bs (a - dt * b) +  (  - 3840000)\\n"
+    },
+    {
+      "noise_ratio": 0.0,
+      "condition": "AST-Sync",
+      "token_accuracy": 0.932584,
+      "ast_corruption_rate": 0.625,
+      "corrupted_count": 50,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (  - * * 3840000) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.25,
+      "condition": "Mod0",
+      "token_accuracy": 0.91573,
+      "ast_corruption_rate": 0.7375,
+      "corrupted_count": 59,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (\\n - * * 3840000) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.25,
+      "condition": "Mod1",
+      "token_accuracy": 0.707865,
+      "ast_corruption_rate": 1.0,
+      "corrupted_count": 80,
+      "total_trials": 80,
+      "sample_error_preview": "* abs(a* 0.0, b* 0.0, dt* float) w floatkut_ricci_step(bs (a - dt * b) + energy_compute_ratio(  - 3840000)\\n"
+    },
+    {
+      "noise_ratio": 0.25,
+      "condition": "AST-Sync",
+      "token_accuracy": 0.930787,
+      "ast_corruption_rate": 0.6125,
+      "corrupted_count": 49,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (\\n - * * 3840000) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.4,
+      "condition": "Mod0",
+      "token_accuracy": 0.915281,
+      "ast_corruption_rate": 0.725,
+      "corrupted_count": 58,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (  - * * w) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.4,
+      "condition": "Mod1",
+      "token_accuracy": 0.706742,
+      "ast_corruption_rate": 1.0,
+      "corrupted_count": 80,
+      "total_trials": 80,
+      "sample_error_preview": "* abs(a* 0.0, b1.0 0.0, dt* float) / floatkut_ricci_steplimden (a - dt * b) +  (  - w)\\n"
+    },
+    {
+      "noise_ratio": 0.4,
+      "condition": "AST-Sync",
+      "token_accuracy": 0.931011,
+      "ast_corruption_rate": 0.6,
+      "corrupted_count": 48,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (  - * * w) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.6,
+      "condition": "Mod0",
+      "token_accuracy": 0.914157,
+      "ast_corruption_rate": 0.7375,
+      "corrupted_count": 59,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (  - * * 3840000) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.6,
+      "condition": "Mod1",
+      "token_accuracy": 0.704045,
+      "ast_corruption_rate": 1.0,
+      "corrupted_count": 80,
+      "total_trials": 80,
+      "sample_error_preview": "patch int(a* 0.0, b-> 0.0, dt1.0 float) / floatblock_count(bs (a - dt * b) +  (  - 3840000)\\n"
+    },
+    {
+      "noise_ratio": 0.6,
+      "condition": "AST-Sync",
+      "token_accuracy": 0.930337,
+      "ast_corruption_rate": 0.5625,
+      "corrupted_count": 45,
+      "total_trials": 80,
+      "sample_error_preview": "def block_count(a: float, b: float, dt: float) -> float:\\n    return (  - * * 3840000) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.8,
+      "condition": "Mod0",
+      "token_accuracy": 0.913258,
+      "ast_corruption_rate": 0.7,
+      "corrupted_count": 56,
+      "total_trials": 80,
+      "sample_error_preview": "def pair_diff(a: float, b: float, dt: float) -> float:\\n    return (\\n - * * w) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 0.8,
+      "condition": "Mod1",
+      "token_accuracy": 0.705618,
+      "ast_corruption_rate": 1.0,
+      "corrupted_count": 80,
+      "total_trials": 80,
+      "sample_error_preview": "* abs(a-> 0.0, b* 0.0, dt* float) min floattps(bs (a - dt * b) + energy_compute_ratio(% - x)\\n"
+    },
+    {
+      "noise_ratio": 0.8,
+      "condition": "AST-Sync",
+      "token_accuracy": 0.928989,
+      "ast_corruption_rate": 0.5625,
+      "corrupted_count": 45,
+      "total_trials": 80,
+      "sample_error_preview": "def pair_diff(a: float, b: float, dt: float) -> float:\\n    return (\\n - * * w) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 1.0,
+      "condition": "Mod0",
+      "token_accuracy": 0.911685,
+      "ast_corruption_rate": 0.7625,
+      "corrupted_count": 61,
+      "total_trials": 80,
+      "sample_error_preview": "def check_positive(a: float, b: float, dt: float) -> float:\\n    return (\\n - 1.0 *  ) + abs(a - b)\\n"
+    },
+    {
+      "noise_ratio": 1.0,
+      "condition": "Mod1",
+      "token_accuracy": 0.706742,
+      "ast_corruption_rate": 1.0,
+      "corrupted_count": 80,
+      "total_trials": 80,
+      "sample_error_preview": "e x(a1.0 bs, b-> 0.0, dtx float) / float\\n    (( (a - dt * b) +  (  - w)\\n"
+    },
+    {
+      "noise_ratio": 1.0,
+      "condition": "AST-Sync",
+      "token_accuracy": 0.928764,
+      "ast_corruption_rate": 0.6375,
+      "corrupted_count": 51,
+      "total_trials": 80,
+      "sample_error_preview": "def check_positive(a: float, b: float, dt: float) -> float:\\n    return (\\n - 1.0 *  ) + abs(a - b)\\n"
+    }
+  ],
+  "target_band_summary": [
+    {
+      "noise_ratio": 0.0,
+      "mod0_tok_acc": 0.916854,
+      "mod0_ast_err": 0.75,
+      "ast_sync_tok_acc": 0.932584,
+      "ast_sync_ast_err": 0.625,
+      "ast_err_reduction": 0.125,
+      "in_target_degradation_band": true
+    },
+    {
+      "noise_ratio": 0.25,
+      "mod0_tok_acc": 0.91573,
+      "mod0_ast_err": 0.7375,
+      "ast_sync_tok_acc": 0.930787,
+      "ast_sync_ast_err": 0.6125,
+      "ast_err_reduction": 0.125,
+      "in_target_degradation_band": true
+    },
+    {
+      "noise_ratio": 0.4,
+      "mod0_tok_acc": 0.915281,
+      "mod0_ast_err": 0.725,
+      "ast_sync_tok_acc": 0.931011,
+      "ast_sync_ast_err": 0.6,
+      "ast_err_reduction": 0.125,
+      "in_target_degradation_band": true
+    },
+    {
+      "noise_ratio": 0.6,
+      "mod0_tok_acc": 0.914157,
+      "mod0_ast_err": 0.7375,
+      "ast_sync_tok_acc": 0.930337,
+      "ast_sync_ast_err": 0.5625,
+      "ast_err_reduction": 0.175,
+      "in_target_degradation_band": true
+    },
+    {
+      "noise_ratio": 0.8,
+      "mod0_tok_acc": 0.913258,
+      "mod0_ast_err": 0.7,
+      "ast_sync_tok_acc": 0.928989,
+      "ast_sync_ast_err": 0.5625,
+      "ast_err_reduction": 0.1375,
+      "in_target_degradation_band": true
+    },
+    {
+      "noise_ratio": 1.0,
+      "mod0_tok_acc": 0.911685,
+      "mod0_ast_err": 0.7625,
+      "ast_sync_tok_acc": 0.928764,
+      "ast_sync_ast_err": 0.6375,
+      "ast_err_reduction": 0.125,
+      "in_target_degradation_band": true
+    }
+  ],
+  "needs_typeclass_decoder": true,
+  "verdict": "FALSIFIED_REDESIGN_TYPECLASS_DECODER"
+}
