@@ -1,0 +1,22 @@
+{
+  "id319_canonical_slug": "grand-simplicity-hypothesis",
+  "id319_status": "OPEN",
+  "id319_hash_matched_mode": "sort_compact_utf8",
+  "id319_hash_pass": true,
+  "id319_related_ids": [
+    1,
+    64,
+    217,
+    320
+  ],
+  "cluster_symmetry": {
+    "319_references_1": true,
+    "319_references_64": true,
+    "1_references_319": true,
+    "64_references_319": true,
+    "all_open_status": true,
+    "all_same_category": false
+  },
+  "manifest_sha256": "0bc52856bd45bd7ed95ac2eaa289ae0263b8b78b94b2b2bc81befc6ef273bf2b",
+  "manifest_sha256_pass": true
+}
