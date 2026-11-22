@@ -1,0 +1,27 @@
+⚠ [7431/7432] Built KUT.Math400.ID001.ZetaVerificationScope (5.9s)
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.RiemannZeta` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.Dirichlet` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.Nonvanishing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.HardyZ` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.ZetaZeros` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.Data.Set.Finite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:129:0: 'KUT.Math400.ID001.zero_free_on_open_right_half_plane' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:130:0: 'KUT.Math400.ID001.zero_free_on_closed_right_half_plane' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:131:0: 'KUT.Math400.ID001.boundary_line_nonvanishing' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:132:0: 'KUT.Math400.ID001.trivial_zeros_characterization' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:133:0: 'KUT.Math400.ID001.critical_line_zeros_subset_strip' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:134:0: 'KUT.Math400.ID001.rh_iff_zeros_eq_critical_line' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:135:0: 'KUT.Math400.ID001.hardyZ_zero_iff_critical_zeta_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:136:0: 'KUT.Math400.ID001.hardyZ_is_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: KUT/Math400/ID001/ZetaVerificationScope.lean:137:0: 'KUT.Math400.ID001.compact_inter_zeta_zeros_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [7432/7432] Ran KUT.Math400.ID001.ZetaVerificationScope:irArts
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.RiemannZeta` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.Dirichlet` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.Nonvanishing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.HardyZ` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.NumberTheory.LSeries.ZetaZeros` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.Data.Set.Finite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: KUT/Math400/ID001/ZetaVerificationScope.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+Build completed successfully (7432 jobs).
+[WARN] kut_axiom_whitelist_auditor.py not found in repo root; running built-in log verifier.

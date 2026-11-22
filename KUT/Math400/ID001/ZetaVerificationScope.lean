@@ -1,6 +1,6 @@
 /-
   Module      : KUT.Math400.ID001.ZetaVerificationScope
-  Version     : v1.0.2 (Mathlib4 rev a495318f Dirichlet Euler-product binding)
+  Version     : v1.1.0 (Nonvanishing Re(s)>=1 + HardyZ + ZetaZeros binding)
   Archive ID  : KUT-MATH-400-ID001
   Slug        : riemann-hypothesis
   Status      : OPEN (Database v1.0.0)
@@ -9,6 +9,9 @@
 
 import Mathlib.NumberTheory.LSeries.RiemannZeta
 import Mathlib.NumberTheory.LSeries.Dirichlet
+import Mathlib.NumberTheory.LSeries.Nonvanishing
+import Mathlib.NumberTheory.LSeries.HardyZ
+import Mathlib.NumberTheory.LSeries.ZetaZeros
 import Mathlib.Data.Set.Finite.Basic
 import Mathlib.Analysis.SpecialFunctions.Log.Basic
 
@@ -34,19 +37,33 @@ def CriticalLineZeros : Set ℂ :=
 
 /--
   KUT-MATH-400-ID001 検証対象命題：リーマン予想（Prop 定義のみ。公理化しない）
-  注：Mathlib4 の `RiemannHypothesis` 定義（自明零点除外形式）と臨界帯形式の対応を明示対象とする。
 -/
 def KUTRiemannHypothesisProp : Prop :=
   ∀ s : ℂ, s ∈ NontrivialZetaZeros → s ∈ CriticalLine
 
-/-! ### Layer A & B-1a: Mathlib4 既存定理に基づく無条件・Zero-Sorry 検証定理群 -/
+/-! ### Layer A & B-1a/B-1b: 閉半平面 Re(s) ≥ 1 非零性・自明零点・構造補題（Zero-Sorry） -/
 
-/-- Layer B-1a: Re(s) > 1 開右半平面におけるゼロフリー定理（Euler 積による Mathlib4 既存定理へ直結） -/
+/-- Layer B-1a: Re(s) > 1 開右半平面におけるゼロフリー定理（Euler 積） -/
 theorem zero_free_on_open_right_half_plane (s : ℂ) (hs : 1 < s.re) :
     riemannZeta s ≠ 0 :=
   riemannZeta_ne_zero_of_one_lt_re hs
 
-/-- 臨界線上の零点は必ず臨界帯に属する（構造的整合性補題） -/
+/-- Layer B-1b: Re(s) ≥ 1 閉右半平面におけるゼロフリー定理（Hadamard / de la Vallée Poussin, PNT 水準） -/
+theorem zero_free_on_closed_right_half_plane (s : ℂ) (hs : 1 ≤ s.re) :
+    riemannZeta s ≠ 0 :=
+  riemannZeta_ne_zero_of_one_le_re hs
+
+/-- Layer B-1b 帰結：境界線 Re(s) = 1 上の非零性（v1.0.2 ターゲットの完全定理化） -/
+theorem boundary_line_nonvanishing (s : ℂ) (hs : s.re = 1) :
+    riemannZeta s ≠ 0 :=
+  riemannZeta_ne_zero_of_one_le_re (le_of_eq hs.symm)
+
+/-- 閉左半平面 Re(s) ≤ 0 における零点の完全特徴付け（負の偶整数のみ） -/
+theorem trivial_zeros_characterization (s : ℂ) (hs : s.re ≤ 0) :
+    riemannZeta s = 0 ↔ ∃ n : ℕ, s = -2 * (n + 1) :=
+  riemannZeta_eq_zero_iff_of_re_nonpos hs
+
+/-- 臨界線上の零点は必ず臨界帯に属する -/
 theorem critical_line_zeros_subset_strip :
     CriticalLineZeros ⊆ CriticalStrip := by
   intro s hs
@@ -69,11 +86,23 @@ theorem rh_iff_zeros_eq_critical_line :
       exact hs
     exact hs'.2
 
-/-! ### Layer B-1b, B-2, C, D: 段階的形式化ターゲット契約（公理導入ではなく Structure 仕様として分離） -/
+/-! ### Layer D 基盤接続: Hardy Z 関数 ＆ 零点集合の位相的離散性（Zero-Sorry） -/
 
-/-- Layer B-1b 契約：境界線 Re(s) = 1 上の非零性（Hadamard / de la Vallée Poussin, PNT 同値水準） -/
-def BoundaryLineNonvanishingTarget : Prop :=
-  ∀ s : ℂ, s.re = 1 → s ≠ 1 → riemannZeta s ≠ 0
+/-- Hardy Z 関数の零点と臨界線上のゼータ零点の同値性 -/
+theorem hardyZ_zero_iff_critical_zeta_zero (t : ℝ) :
+    hardyZ t = 0 ↔ riemannZeta (1 / 2 + t * I) = 0 :=
+  hardyZ_eq_zero_iff t
+
+/-- Hardy Z 関数の連続性（中間値の定理による符号変化検出の基盤） -/
+theorem hardyZ_is_continuous : Continuous hardyZ :=
+  continuous_hardyZ
+
+/-- 任意のコンパクト領域内のゼータ零点集合は有限である -/
+theorem compact_inter_zeta_zeros_finite (S : Set ℂ) (hS : IsCompact S) :
+    (S ∩ riemannZetaZeros).Finite :=
+  hS.inter_riemannZetaZeros_finite
+
+/-! ### Layer B-2, C, D: 次段形式化ターゲット契約（公理導入ではなく Structure/Prop 仕様） -/
 
 /-- Layer B-2 契約：古典的 de la Vallée Poussin ゼロフリー領域の形式化ターゲット -/
 structure ClassicalZeroFreeRegionSpec where
@@ -96,9 +125,15 @@ structure TruncatedExplicitFormulaSpec (psi : ℝ → ℝ) where
 def HardyInfiniteCriticalZerosTarget : Prop :=
   CriticalLineZeros.Infinite
 
-/-! ### 公理汚染チェック（3公理ホワイトリスト監査用） -/
+/-! ### 公理汚染チェック（3公理ホワイトリスト監査用：全9定理） -/
 #print axioms zero_free_on_open_right_half_plane
+#print axioms zero_free_on_closed_right_half_plane
+#print axioms boundary_line_nonvanishing
+#print axioms trivial_zeros_characterization
 #print axioms critical_line_zeros_subset_strip
 #print axioms rh_iff_zeros_eq_critical_line
+#print axioms hardyZ_zero_iff_critical_zeta_zero
+#print axioms hardyZ_is_continuous
+#print axioms compact_inter_zeta_zeros_finite
 
 end KUT.Math400.ID001
